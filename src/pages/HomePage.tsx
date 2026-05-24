@@ -1,4 +1,3 @@
-import AsciiSphere from '../components/AsciiSphere'
 import HeroSection from '../sections/HeroSection'
 import ProjectsSection from '../sections/ProjectsSection'
 import SkillsSection from '../sections/SkillsSection'
@@ -12,7 +11,6 @@ function HomePage() {
 
   return (
     <>
-      <AsciiSphere />
       <HeroSection />
       <ProjectsSection />
       <SkillsSection />

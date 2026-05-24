@@ -1,22 +1,27 @@
+import { Link } from 'react-router-dom'
+
 const projects = [
   {
+    id: 'day-stride-scheduling',
     title: 'Day-Stride-Scheduling',
     description:
-      'A full-featured online store with payment integration, inventory management, and admin dashboard built for scale.',
+      'End-to-end scheduling platform with secure payments, inventory controls, and an admin dashboard designed for scale.',
     tags: ['React', 'Node.js', 'MongoDB'],
     image: '/images/image.png',
   },
   {
+    id: 'task-management-app',
     title: 'Task Management App',
     description:
-      'Collaborative project management tool with real-time updates, team workspaces, and progress tracking across all devices.',
+      'Collaborative task management with real-time sync, team workspaces, and cross-device continuity.',
     tags: ['Next.js', 'TypeScript', 'PostgreSQL'],
     image: '/images/project-taskapp.jpg',
   },
   {
+    id: 'portfolio-cms',
     title: 'Portfolio CMS',
     description:
-      'Custom content management system for creative professionals with dynamic galleries, media optimization, and SEO tools.',
+      'Custom CMS for creative professionals offering optimized media delivery, dynamic galleries, and SEO tooling.',
     tags: ['Vue.js', 'Express', 'AWS'],
     image: '/images/project-cms.jpg',
   },
@@ -28,7 +33,7 @@ function ProjectsSection() {
       id="projects"
       className="relative"
       style={{
-        background: '#f6f1ee',
+        background: 'var(--color-background)',
         zIndex: 1,
         padding: '120px 0',
       }}
@@ -37,16 +42,16 @@ function ProjectsSection() {
         <div data-animate="header">
           <h2
             className="font-display text-[32px] md:text-[48px]"
-            style={{ color: '#3c1c10' }}
+            style={{ color: 'var(--color-text)' }}
           >
-            Selected Projects
+            Selected Work
           </h2>
           <div
             className="mt-3"
             style={{
               width: '80px',
               height: '3px',
-              background: '#b04a3e',
+              background: 'var(--color-accent)',
             }}
           />
         </div>
@@ -78,13 +83,13 @@ function ProjectsSection() {
                 <div className={isReversed ? 'md:order-1' : ''}>
                   <h3
                     className="font-body text-[24px] font-medium mt-2"
-                    style={{ color: '#3c1c10' }}
+                    style={{ color: 'var(--color-text)' }}
                   >
                     {project.title}
                   </h3>
                   <p
                     className="font-body text-[16px] mt-3 leading-relaxed"
-                    style={{ color: 'rgba(60, 28, 16, 0.7)' }}
+                    style={{ color: 'rgba(var(--color-text-rgb), 0.7)' }}
                   >
                     {project.description}
                   </p>
@@ -92,26 +97,26 @@ function ProjectsSection() {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="font-body text-[13px] px-4 py-1.5 rounded-full border border-transparent transition-all duration-200 hover:border-[#b04a3e]"
+                        className="font-body text-[13px] px-4 py-1.5 rounded-full border border-transparent transition-all duration-200 hover:border-[var(--color-accent)]"
                         style={{
-                          background: '#e8e3df',
-                          color: '#3c1c10',
+                          background: 'var(--color-ghost)',
+                          color: 'var(--color-text)',
                         }}
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
-                  <a
-                    href="#"
+                  <Link
+                    to={`/work#${project.id}`}
                     className="inline-flex items-center gap-1 font-body text-[15px] font-medium mt-5 transition-all duration-200 group"
-                    style={{ color: '#b04a3e' }}
+                    style={{ color: 'var(--color-accent)' }}
                   >
                     View Details
                     <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
                       &rarr;
                     </span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             )

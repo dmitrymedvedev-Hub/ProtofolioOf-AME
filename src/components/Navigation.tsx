@@ -35,9 +35,9 @@ function Navigation() {
   }
 
   const navLinks = [
-    { label: 'Work', id: 'projects', type: 'section' as const },
+    { label: 'Work', path: '/work', type: 'route' as const },
     { label: 'About', path: '/about', type: 'route' as const },
-    { label: 'Contact', id: 'contact', type: 'section' as const },
+    { label: 'Contact', path: '/start-project', type: 'route' as const },
   ]
 
   const mobileItems = navLinks.map((link, index) => ({
@@ -45,28 +45,28 @@ function Navigation() {
     delayClass: ['delay-[120ms]', 'delay-[190ms]', 'delay-[260ms]'][index] || 'delay-0',
   }))
 
-  const themeClasses = isHome
+    const themeClasses = isHome
     ? {
         shell: scrolled
-          ? 'bg-[#1a1a1a]/75 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20'
+          ? 'bg-[var(--color-text)]/75 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20'
           : 'bg-transparent border-b border-transparent',
-        brand: 'text-white',
-        link: 'text-white/70 hover:text-white',
-        activeLink: 'text-white',
-        icon: 'bg-white',
+        brand: 'text-[var(--color-background)]',
+        link: 'text-[var(--color-background)]/70 hover:text-[var(--color-background)]',
+        activeLink: 'text-[var(--color-background)]',
+        icon: 'bg-[var(--color-background)]',
         mobileOverlay: 'bg-black/35',
-        mobilePanel: 'bg-[#1a1a1a]/95 text-white border-l border-white/10',
-        mobileLink: 'text-white/75 hover:text-white',
+        mobilePanel: 'bg-[var(--color-text)]/95 text-[var(--color-background)] border-l border-white/10',
+        mobileLink: 'text-[var(--color-background)]/75 hover:text-[var(--color-background)]',
       }
     : {
-        shell: 'bg-[#f6f1ee]/90 backdrop-blur-xl border-b border-[#e8e3df] shadow-lg shadow-[#3c1c10]/5',
-        brand: 'text-[#3c1c10]',
-        link: 'text-[#3c1c10]/70 hover:text-[#b04a3e]',
-        activeLink: 'text-[#3c1c10]',
-        icon: 'bg-[#3c1c10]',
-        mobileOverlay: 'bg-[#3c1c10]/20',
-        mobilePanel: 'bg-[#f6f1ee] text-[#3c1c10] border-l border-[#e8e3df]',
-        mobileLink: 'text-[#3c1c10]/70 hover:text-[#b04a3e]',
+        shell: 'bg-[var(--color-background)]/90 backdrop-blur-xl border-b border-[var(--color-border)] shadow-lg shadow-[var(--color-text)]/5',
+        brand: 'text-[var(--color-text)]',
+        link: 'text-[var(--color-text)]/70 hover:text-[var(--color-accent)]',
+        activeLink: 'text-[var(--color-text)]',
+        icon: 'bg-[var(--color-text)]',
+        mobileOverlay: 'bg-[var(--color-text)]/20',
+        mobilePanel: 'bg-[var(--color-background)] text-[var(--color-text)] border-l border-[var(--color-border)]',
+        mobileLink: 'text-[var(--color-text)]/70 hover:text-[var(--color-accent)]',
       }
 
   return (
@@ -79,7 +79,7 @@ function Navigation() {
           className={`group flex items-center gap-3 font-body text-[16px] font-medium transition-colors duration-300 ${themeClasses.brand}`}
         >
           <span className="relative flex size-2.5 items-center justify-center">
-            <span className="absolute inset-0 rounded-full bg-[#b04a3e]/20 blur-sm transition-all duration-300 group-hover:scale-150" />
+            <span className="absolute inset-0 rounded-full bg-[var(--color-accent)]/20 blur-sm transition-all duration-300 group-hover:scale-150" />
             <span className="relative size-2.5 rounded-full bg-current transition-transform duration-300 group-hover:scale-110" />
           </span>
           <span className="relative overflow-hidden">
@@ -176,7 +176,7 @@ function Navigation() {
             mobileOpen ? 'translate-x-0 opacity-100' : 'translate-x-[102%] opacity-0'
           }`}
         >
-          <div className="mb-8 h-px w-12 rounded-full bg-[#b04a3e]/70" />
+          <div className="mb-8 h-px w-12 rounded-full bg-[var(--color-accent)]/70" />
           <div className="flex flex-col gap-2">
             {mobileItems.map((link) =>
               link.type === 'route' ? (
