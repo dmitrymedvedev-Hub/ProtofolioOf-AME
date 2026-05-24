@@ -30,25 +30,25 @@ function SkillsSection() {
     <section
       className="relative"
       style={{
-        background: '#3c1c10',
+        background: 'var(--color-text)',
         zIndex: 1,
         padding: '120px 0',
       }}
     >
       <div className="max-w-[1200px] mx-auto px-5 md:px-10">
         <div data-animate="header">
-          <h2
-            className="font-display text-[32px] md:text-[48px]"
-            style={{ color: '#f6f1ee' }}
-          >
-            Skills & Expertise
-          </h2>
+            <h2
+              className="font-display text-[32px] md:text-[48px]"
+              style={{ color: 'var(--color-background)' }}
+            >
+              Skills & Expertise
+            </h2>
           <div
             className="mt-3"
             style={{
               width: '80px',
               height: '3px',
-              background: '#b04a3e',
+              background: 'var(--color-accent)',
             }}
           />
         </div>
@@ -65,19 +65,19 @@ function SkillsSection() {
                   style={{
                     width: '8px',
                     height: '8px',
-                    background: '#b04a3e',
+                    background: 'var(--color-accent)',
                   }}
                 />
                 <span
                   className="font-body text-[14px] tracking-[2px]"
-                  style={{ color: 'rgba(246, 241, 238, 0.5)' }}
+                  style={{ color: 'rgba(var(--color-background-rgb, 246 241 238), 0.5)' }}
                 >
                   {group.label}
                 </span>
               </div>
               <p
                 className="font-body text-[18px] mt-2 ml-[20px]"
-                style={{ color: '#f6f1ee' }}
+                style={{ color: 'var(--color-background)' }}
               >
                 {group.skills}
               </p>
