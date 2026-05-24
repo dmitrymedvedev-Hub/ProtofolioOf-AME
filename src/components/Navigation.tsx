@@ -51,7 +51,7 @@ function Navigation() {
         shell: scrolled
           ? 'bg-[var(--color-text)]/78 backdrop-blur-xl border-b border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.22)]'
           : 'bg-transparent border-b border-transparent',
-        brand: 'text-[var(--color-background)]',
+        brand: 'text-[var(--color-accent)]',
         link: 'text-[var(--color-background)]/70 hover:text-[var(--color-background)]',
         activeLink: 'text-[var(--color-background)]',
         icon: 'bg-[var(--color-background)]',

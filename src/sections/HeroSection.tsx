@@ -53,7 +53,7 @@ function HeroSection() {
             </button>
             <a
               href="/start-project"
-              className="rounded-full border border-white/15 px-8 py-4 font-body text-[16px] font-medium text-white transition-colors duration-200 hover:bg-white hover:text-[var(--color-text)]"
+              className="rounded-full bg-[var(--color-accent)] px-8 py-4 font-body text-[16px] font-medium text-[var(--color-background)] shadow-[0_10px_30px_rgba(var(--color-accent-rgb),0.25)] transition-colors duration-200 hover:bg-[var(--color-accent-600)]"
             >
               Start a Project
             </a>
