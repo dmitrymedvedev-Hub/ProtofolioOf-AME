@@ -5,22 +5,17 @@ import useScrollAnimation from '../hooks/useScrollAnimation'
 const highlights = [
   {
     title: 'Production-first mindset',
-    description:
-      'I focus on reliability, clarity, and maintainability so the work stays useful after launch.',
+    description: 'I focus on reliability, clarity, and maintainability so the work stays useful after launch.',
   },
   {
     title: 'Product thinking',
-    description:
-      'I shape features around real user needs, business value, and simple paths to completion.',
+    description: 'I shape features around real user needs, business value, and simple paths to completion.',
   },
   {
     title: 'Modern execution',
-    description:
-      'I build with current frontend patterns, clean component boundaries, and strong visual polish.',
+    description: 'I build with current frontend patterns, clean component boundaries, and strong visual polish.',
   },
 ]
-
-const stats = []
 
 const journey = [
   {
@@ -45,103 +40,126 @@ function AboutMorePage() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-[rgba(var(--color-text-rgb),0.98)] to-[rgba(var(--color-text-rgb),0.92)] pt-[96px] pb-[64px]">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-24 -right-24 h-80 w-80 rounded-full bg-[var(--color-accent)]/15 blur-3xl" />
-          <div className="absolute bottom-0 left-0 h-72 w-72 rounded-full bg-white/5 blur-3xl" />
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-[var(--color-text)] pt-[120px] pb-[80px]">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-[var(--color-accent)]/10 blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-white/3 blur-3xl" />
         </div>
 
         <div className="relative max-w-[1200px] mx-auto px-5 md:px-10">
-          <div className="max-w-[760px]" data-animate="fade">
-            <p className="font-accent text-[18px] md:text-[24px] text-[var(--color-accent)]">
-              More About Me
-            </p>
-            <h1
-              className="font-display text-[42px] md:text-[72px] leading-[1.05] mt-3"
-              className="font-display text-[42px] md:text-[72px] leading-[1.05] mt-3 text-[var(--color-background)]"
-            >
-              Clear thinking. Calm execution. Strong outcomes.
+          <div className="max-w-[800px]" data-animate="fade-up">
+            <span className="inline-block px-4 py-2 rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-[13px] uppercase tracking-[3px] font-medium mb-6">
+              About Me
+            </span>
+            <h1 className="font-display text-[42px] md:text-[64px] leading-tight text-white">
+              Clear thinking. <span className="text-[var(--color-accent)]">Calm execution.</span> Strong outcomes.
             </h1>
-            <p className="font-body text-[17px] md:text-[19px] leading-relaxed mt-5 max-w-[680px] text-[rgba(var(--color-background-rgb),0.72)]">
-              I design and build modern digital products with a practical approach: understand the problem, shape the
-              solution carefully, and deliver work that is fast, elegant, and easy to maintain.
+            <p className="font-body text-[17px] md:text-[18px] leading-relaxed mt-6 text-white/60 max-w-[640px]">
+              I design and build modern digital products with a practical approach: understand the problem, shape the solution carefully, and deliver work that is fast, elegant, and easy to maintain.
             </p>
           </div>
-
-          {/* removed stats per user request */}
         </div>
       </section>
 
-      <section className="bg-[var(--color-background)] pt-[72px] pb-[108px]">
-        <div className="max-w-[1200px] mx-auto px-5 md:px-10 grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] gap-10 xl:gap-14 items-start">
-          <div data-animate="fade" className="max-w-[620px] lg:sticky lg:top-24">
-            <p className="font-body text-[14px] uppercase tracking-[2px] text-[rgba(var(--color-text-rgb),0.5)]">
-              My focus
-            </p>
-            <h2 className="font-display text-[32px] md:text-[48px] leading-[1.15] mt-3 max-w-[13ch] text-[var(--color-text)]">
+      {/* Focus Section */}
+      <section className="relative z-10 bg-[var(--color-surface)] py-[80px]">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-10 grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-12 lg:gap-16 items-start">
+          <div data-animate="fade-up" className="lg:sticky lg:top-24">
+            <h2 className="font-display text-[32px] md:text-[44px] leading-tight text-[var(--color-text)]">
               A short summary of how I work
             </h2>
-            <p className="font-body text-[16px] leading-relaxed mt-5 text-[rgba(var(--color-text-rgb),0.72)]">
-              I care about the complete experience, not just the visible screen. That means thoughtful information
-              hierarchy, smooth interaction, responsible performance, and a tone that feels professional without being cold.
-            </p>
-            <p className="font-body text-[16px] leading-relaxed mt-4 text-[rgba(var(--color-text-rgb),0.72)]">
-              I work best when the goal is clear and the finish line matters. My process is to reduce complexity,
-              organize the moving parts, and leave behind a codebase that is readable and ready for the next step.
-            </p>
-            <div className="mt-6 h-px w-24 bg-[var(--color-border)]" />
+            <div className="h-1 w-16 bg-[var(--color-accent)] rounded-full mt-4" />
           </div>
 
-          {/* Simplified content: single paragraph and one photo */}
-          <div className="grid gap-5" data-animate="stagger">
-            <div>
-              <p className="font-body text-[16px] leading-relaxed mt-5 text-[rgba(var(--color-text-rgb),0.72)]">
-                I design and build modern digital products with a practical approach: understand the problem, shape the solution
-                carefully, and deliver work that is fast, elegant, and easy to maintain.
-              </p>
-            </div>
-
-            <div>
-              <figure className="overflow-hidden rounded-[28px] border border-[var(--color-border)] bg-[var(--color-background)] shadow-[0_18px_50px_rgba(var(--color-text-rgb),0.07)] mt-6">
-                <div className="relative h-full min-h-[420px] overflow-hidden">
-                  <img
-                    src="/images/portrait.jpg"
-                    alt="Professional portrait of Abdallah Elmhady"
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                  />
-                </div>
-              </figure>
-            </div>
+          <div className="space-y-6" data-animate="fade-up" data-delay="0.1">
+            <p className="font-body text-[16px] leading-relaxed text-[var(--color-text)]/70">
+              I care about the complete experience, not just the visible screen. That means thoughtful information hierarchy, smooth interaction, responsible performance, and a tone that feels professional without being cold.
+            </p>
+            <p className="font-body text-[16px] leading-relaxed text-[var(--color-text)]/70">
+              I work best when the goal is clear and the finish line matters. My process is to reduce complexity, organize the moving parts, and leave behind a codebase that is readable and ready for the next step.
+            </p>
           </div>
         </div>
       </section>
 
-      <section className="bg-[var(--color-surface)] py-[120px]">
+      {/* Highlights Section */}
+      <section className="relative z-10 bg-[var(--color-surface)] py-[60px]">
         <div className="max-w-[1200px] mx-auto px-5 md:px-10">
-          <div data-animate="header">
-            <h2 className="font-display text-[32px] md:text-[48px] text-[var(--color-text)]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6" data-animate="stagger">
+            {highlights.map((item) => (
+              <div
+                key={item.title}
+                className="group p-6 rounded-2xl bg-white border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-[var(--color-accent)]/10 hover:-translate-y-1"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-3 h-3 rounded-full bg-[var(--color-accent)]" />
+                </div>
+                <h3 className="font-body text-[18px] font-semibold text-[var(--color-text)] mb-3">
+                  {item.title}
+                </h3>
+                <p className="font-body text-[15px] leading-relaxed text-[var(--color-text)]/60">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Photo Section */}
+      <section className="relative z-10 bg-[var(--color-surface)] py-[60px]">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-10">
+          <figure
+            className="relative overflow-hidden rounded-[32px] shadow-2xl"
+            data-animate="scale"
+          >
+            <div className="relative h-[500px] overflow-hidden">
+              <img
+                src="/images/imageTow.png"
+                alt="Professional portrait of Abdallah Elmhady"
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-text)]/40 to-transparent" />
+            </div>
+            <figcaption className="absolute bottom-0 left-0 right-0 p-8">
+              <p className="text-white/90 font-body text-[16px]">
+                Building digital experiences with precision and care
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      {/* Journey Section */}
+      <section className="relative z-10 bg-[var(--color-text)] py-[80px]">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-10">
+          <div className="text-center mb-12" data-animate="fade-up">
+            <span className="inline-block px-4 py-2 rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-[13px] uppercase tracking-[3px] font-medium mb-4">
+              Journey
+            </span>
+            <h2 className="font-display text-[32px] md:text-[48px] text-white">
               Career snapshot
             </h2>
-            <div className="mt-3 h-[3px] w-20 rounded-full bg-[var(--color-accent)]" />
           </div>
 
-          <div className="mt-16 grid gap-8" data-animate="stagger">
+          <div className="grid gap-6 max-w-[900px] mx-auto" data-animate="stagger">
             {journey.map((item) => (
               <div
                 key={item.title}
-                className="grid grid-cols-1 md:grid-cols-[110px_1fr] gap-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-background)] p-7 shadow-[0_12px_35px_rgba(var(--color-text-rgb),0.05)]"
+                className="flex gap-6 p-6 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/[0.06] hover:border-[var(--color-accent)]/30"
               >
-                <div>
-                  <span className="font-display text-[28px] text-[var(--color-accent)]">
+                <div className="flex-shrink-0">
+                  <span className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[var(--color-accent)]/15 text-[var(--color-accent)] font-display text-[20px] font-semibold">
                     {item.year}
                   </span>
                 </div>
                 <div>
-                  <h3 className="font-body text-[22px] font-medium text-[var(--color-text)]">
+                  <h3 className="font-body text-[20px] font-semibold text-white mb-2">
                     {item.title}
                   </h3>
-                  <p className="font-body text-[16px] leading-relaxed mt-3 text-[rgba(var(--color-text-rgb),0.72)]">
+                  <p className="font-body text-[15px] leading-relaxed text-white/60">
                     {item.text}
                   </p>
                 </div>
@@ -151,24 +169,25 @@ function AboutMorePage() {
         </div>
       </section>
 
-      <section className="bg-[var(--color-text)] py-[100px]">
-        <div className="max-w-[1200px] mx-auto px-5 md:px-10 text-center" data-animate="fade">
-          <h2 className="font-display text-[30px] md:text-[44px] text-[var(--color-background)]">
-            If you need a careful builder with a modern eye, I’m ready to help.
+      {/* CTA Section */}
+      <section className="relative z-10 bg-[var(--color-text)] py-[80px]">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-10 text-center" data-animate="fade-up">
+          <h2 className="font-display text-[28px] md:text-[40px] text-white leading-tight">
+            If you need a careful builder with a modern eye, <span className="text-[var(--color-accent)]">I'm ready to help.</span>
           </h2>
-          <p className="font-body text-[16px] mt-4 text-[rgba(var(--color-background-rgb),0.72)]">
+          <p className="font-body text-[16px] mt-4 text-white/60 max-w-[600px] mx-auto">
             I can help shape a portfolio, product site, internal tool, or full-stack web app from concept to delivery.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
             <Link
               to="/work"
-              className="font-body text-[16px] font-medium px-10 py-4 rounded-full transition-colors duration-200 bg-[var(--color-accent)] hover:bg-[var(--color-accent-600)] text-[var(--color-background)]"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-[var(--color-accent)] text-[var(--color-background)] font-body text-[16px] font-medium transition-all duration-300 hover:shadow-[0_10px_30px_rgba(var(--color-accent-rgb),0.3)] hover:-translate-y-0.5"
             >
               View Work
             </Link>
             <Link
               to="/start-project"
-              className="font-body text-[16px] font-medium px-10 py-4 rounded-full border-[1.5px] transition-all duration-200 border-[rgba(var(--color-background-rgb),0.28)] text-[var(--color-background)] hover:bg-[var(--color-background)] hover:text-[var(--color-text)]"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-full border border-white/20 text-white font-body text-[16px] font-medium transition-all duration-300 hover:bg-white/10 hover:border-white/30"
             >
               Contact Me
             </Link>

@@ -102,8 +102,8 @@ function Navigation() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {/* Theme Toggle Button */}
+        <div className="hidden md:flex items-center gap-6">
+          {/* Theme Toggle Button - Left side near Contact */}
           <button
             onClick={toggleTheme}
             className="group relative p-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-[var(--color-accent)]/30"
