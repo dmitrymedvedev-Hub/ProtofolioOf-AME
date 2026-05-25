@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import useScrollAnimation from '../hooks/useScrollAnimation'
@@ -21,6 +22,56 @@ const processSteps = [
 
 function StartProjectPage() {
   useScrollAnimation()
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    projectType: '',
+    details: '',
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: `Project Type: ${formData.projectType}\n\nDetails:\n${formData.details}`,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (response.ok && result.success) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', projectType: '', details: '' })
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      console.error('Error submitting project brief:', error)
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+
+    setTimeout(() => setSubmitStatus('idle'), 3000)
+  }
 
   return (
     <>
@@ -29,10 +80,10 @@ function StartProjectPage() {
           <div data-animate="fade">
             <p className="font-accent text-[18px] md:text-[24px] text-[var(--color-accent)]">Start Project</p>
             <h1 className="mt-4 font-display text-[42px] md:text-[74px] leading-[0.95] section-title section-title-dark max-w-[10ch]">
-              Let&apos;s build something modern and polished.
+              Let's build something modern and polished.
             </h1>
             <p className="mt-6 max-w-[720px] font-body text-[17px] md:text-[19px] section-copy-dark">
-              Share your goal and I&apos;ll help turn it into a clean, professional experience from the first screen to the last detail.
+              Share your goal and I'll help turn it into a clean, professional experience from the first screen to the last detail.
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
@@ -101,36 +152,98 @@ function StartProjectPage() {
             </p>
           </div>
 
-          <form data-animate="fade" data-delay="0.1" className="surface-card p-6 md:p-8" onSubmit={(e) => e.preventDefault()}>
+          <form data-animate="fade" data-delay="0.1" className="surface-card p-6 md:p-8" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="mb-2 block font-body text-[14px] font-medium text-[var(--color-text)]">Name</label>
-                <input type="text" className="input-modern" placeholder="Your name" aria-label="Your name" />
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="input-modern"
+                  placeholder="Your name"
+                  aria-label="Your name"
+                  required
+                />
               </div>
               <div>
                 <label className="mb-2 block font-body text-[14px] font-medium text-[var(--color-text)]">Email</label>
-                <input type="email" className="input-modern" placeholder="you@example.com" aria-label="Your email" />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="input-modern"
+                  placeholder="you@example.com"
+                  aria-label="Your email"
+                  required
+                />
               </div>
             </div>
 
             <div className="mt-4">
               <label className="mb-2 block font-body text-[14px] font-medium text-[var(--color-text)]">Project type</label>
-              <input type="text" placeholder="Website, dashboard, redesign, or custom app" className="input-modern" />
+              <input
+                type="text"
+                name="projectType"
+                value={formData.projectType}
+                onChange={handleChange}
+                placeholder="Website, dashboard, redesign, or custom app"
+                className="input-modern"
+              />
             </div>
 
             <div className="mt-4">
               <label className="mb-2 block font-body text-[14px] font-medium text-[var(--color-text)]">Project details</label>
-              <textarea rows={6} placeholder="Share your goals, timeline, and any useful links or notes." className="textarea-modern" />
+              <textarea
+                rows={6}
+                name="details"
+                value={formData.details}
+                onChange={handleChange}
+                placeholder="Share your goals, timeline, and any useful links or notes."
+                className="textarea-modern"
+              />
             </div>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-4">
-              <button type="submit" className="btn-primary font-body text-[16px] font-medium px-10 py-4">
-                Send Project Brief
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`btn-primary font-body text-[16px] font-medium px-10 py-4 inline-flex items-center justify-center gap-2 ${
+                  isSubmitting ? 'opacity-70 cursor-wait' : ''
+                }`}
+              >
+                {isSubmitting ? (
+                  <>
+                    <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Sending...
+                  </>
+                ) : submitStatus === 'success' ? (
+                  <>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Sent Successfully!
+                  </>
+                ) : (
+                  'Send Project Brief'
+                )}
               </button>
-              <a href="mailto:abdallahmohammedelmhady@gmail.com" className="btn-secondary font-body text-[16px] font-medium px-10 py-4 inline-flex justify-center">
+              <a
+                href="mailto:abdallahmohammedelmhady@gmail.com"
+                className="btn-secondary font-body text-[16px] font-medium px-10 py-4 inline-flex justify-center items-center gap-2 group"
+              >
+                <svg className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
                 Email Me Directly
               </a>
             </div>
+
+            {submitStatus === 'error' && (
+              <p className="mt-4 text-red-500 text-sm">Something went wrong. Please try again or email me directly.</p>
+            )}
           </form>
         </div>
       </section>

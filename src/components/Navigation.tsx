@@ -47,29 +47,32 @@ function Navigation() {
     delayClass: ['delay-[120ms]', 'delay-[190ms]', 'delay-[260ms]', 'delay-[330ms]'][index] || 'delay-0',
   }))
 
-  const themeClasses = isHome || isStartProject || location.pathname === '/work' || location.pathname === '/about' || location.pathname === '/about-more'
+  // Determine if we're on a dark-themed page
+  const isDarkPage = isHome || isStartProject || location.pathname === '/work' || location.pathname === '/about' || location.pathname === '/about-more'
+
+  const themeClasses = isDarkPage
     ? {
-        // Dark theme for all main pages
+        // Dark theme for all main pages - consistent modern gradient
         shell: scrolled
-          ? 'bg-gradient-to-r from-[var(--color-text)]/90 via-[var(--color-text)]/80 to-[var(--color-text)]/90 backdrop-blur-2xl border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]'
-          : 'bg-gradient-to-r from-[var(--color-text)]/60 via-[var(--color-text)]/40 to-[var(--color-text)]/60 backdrop-blur-xl border-b border-white/5',
+          ? 'bg-gradient-to-r from-[var(--color-text)]/95 via-[var(--color-text)]/85 to-[var(--color-text)]/95 backdrop-blur-2xl border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
+          : 'bg-gradient-to-r from-[var(--color-text)]/70 via-[var(--color-text)]/50 to-[var(--color-text)]/70 backdrop-blur-xl border-b border-white/5',
         brand: 'text-white font-semibold',
         link: 'text-white/70 hover:text-white transition-all duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-[var(--color-accent)] after:rounded-full after:transition-all after:duration-300 hover:after:w-full',
         activeLink: 'text-white font-semibold after:w-full',
         icon: 'bg-white',
-        mobileOverlay: 'bg-black/60 backdrop-blur-sm',
+        mobileOverlay: 'bg-black/70 backdrop-blur-md',
         mobilePanel:
-          'bg-gradient-to-b from-[var(--color-text)] via-[rgba(var(--color-text-rgb),0.97)] to-[var(--color-text)] text-white border-l border-white/10',
+          'bg-gradient-to-b from-[var(--color-text)] via-[rgba(var(--color-text-rgb),0.98)] to-[var(--color-text)] text-white border-l border-white/10',
         mobileLink: 'text-white/75 hover:text-white',
       }
     : {
-        // Light theme for other pages
-        shell: 'bg-white/92 backdrop-blur-2xl border-b border-gray-200 shadow-[0_8px_32px_rgba(0,0,0,0.08)]',
+        // Light theme for other pages - clean modern style
+        shell: 'bg-white/95 backdrop-blur-2xl border-b border-gray-200 shadow-[0_8px_32px_rgba(0,0,0,0.08)]',
         brand: 'text-[var(--color-text)] font-semibold',
         link: 'text-gray-600 hover:text-[var(--color-accent)] transition-all duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-[var(--color-accent)] after:rounded-full after:transition-all after:duration-300 hover:after:w-full',
         activeLink: 'text-[var(--color-text)] font-semibold after:w-full',
         icon: 'bg-[var(--color-text)]',
-        mobileOverlay: 'bg-gray-900/20 backdrop-blur-sm',
+        mobileOverlay: 'bg-gray-900/30 backdrop-blur-md',
         mobilePanel:
           'bg-gradient-to-b from-white via-gray-50 to-white text-[var(--color-text)] border-l border-gray-200',
         mobileLink: 'text-gray-600 hover:text-[var(--color-accent)]',
