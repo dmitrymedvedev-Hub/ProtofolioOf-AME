@@ -47,42 +47,32 @@ function Navigation() {
     delayClass: ['delay-[120ms]', 'delay-[190ms]', 'delay-[260ms]', 'delay-[330ms]'][index] || 'delay-0',
   }))
 
-  const themeClasses = isHome
+  const themeClasses = isHome || isStartProject || location.pathname === '/work' || location.pathname === '/about' || location.pathname === '/about-more'
     ? {
+        // Dark theme for all main pages
         shell: scrolled
-          ? 'bg-[var(--color-text)]/78 backdrop-blur-xl border-b border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.22)]'
-          : 'bg-transparent border-b border-transparent',
-        brand: 'text-[var(--color-accent)]',
-        link: 'text-[var(--color-background)]/70 hover:text-[var(--color-background)]',
-        activeLink: 'text-[var(--color-background)]',
-        icon: 'bg-[var(--color-background)]',
-        mobileOverlay: 'bg-black/45 backdrop-blur-[1px]',
+          ? 'bg-gradient-to-r from-[var(--color-text)]/90 via-[var(--color-text)]/80 to-[var(--color-text)]/90 backdrop-blur-2xl border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]'
+          : 'bg-gradient-to-r from-[var(--color-text)]/60 via-[var(--color-text)]/40 to-[var(--color-text)]/60 backdrop-blur-xl border-b border-white/5',
+        brand: 'text-white font-semibold',
+        link: 'text-white/70 hover:text-white transition-all duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-[var(--color-accent)] after:rounded-full after:transition-all after:duration-300 hover:after:w-full',
+        activeLink: 'text-white font-semibold after:w-full',
+        icon: 'bg-white',
+        mobileOverlay: 'bg-black/60 backdrop-blur-sm',
         mobilePanel:
-          'bg-[linear-gradient(180deg,rgba(var(--color-text-rgb),0.98),rgba(var(--color-text-rgb),0.92))] text-[var(--color-background)] border-l border-white/10',
-        mobileLink: 'text-[var(--color-background)]/75 hover:text-[var(--color-background)]',
+          'bg-gradient-to-b from-[var(--color-text)] via-[rgba(var(--color-text-rgb),0.97)] to-[var(--color-text)] text-white border-l border-white/10',
+        mobileLink: 'text-white/75 hover:text-white',
       }
-    : isStartProject
-      ? {
-          shell: 'bg-[var(--color-text)]/78 backdrop-blur-xl border-b border-white/10 shadow-[0_12px_40px rgba(0,0,0,0.22)]',
-          brand: 'text-[var(--color-background)]',
-          link: 'text-[var(--color-background)]/72 hover:text-[var(--color-background)]',
-          activeLink: 'text-[var(--color-background)]',
-          icon: 'bg-[var(--color-background)]',
-          mobileOverlay: 'bg-black/45 backdrop-blur-[1px]',
-          mobilePanel:
-            'bg-[linear-gradient(180deg,rgba(var(--color-text-rgb),0.98),rgba(var(--color-text-rgb),0.92))] text-[var(--color-background)] border-l border-white/10',
-          mobileLink: 'text-[var(--color-background)]/75 hover:text-[var(--color-background)]',
-        }
     : {
-        shell: 'bg-[var(--color-background)]/92 backdrop-blur-xl border-b border-[var(--color-border)] shadow-[0_12px_40px_rgba(var(--color-text-rgb),0.06)]',
-        brand: 'text-[var(--color-text)]',
-        link: 'text-[var(--color-text)]/70 hover:text-[var(--color-accent)]',
-        activeLink: 'text-[var(--color-text)]',
+        // Light theme for other pages
+        shell: 'bg-white/92 backdrop-blur-2xl border-b border-gray-200 shadow-[0_8px_32px_rgba(0,0,0,0.08)]',
+        brand: 'text-[var(--color-text)] font-semibold',
+        link: 'text-gray-600 hover:text-[var(--color-accent)] transition-all duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-[var(--color-accent)] after:rounded-full after:transition-all after:duration-300 hover:after:w-full',
+        activeLink: 'text-[var(--color-text)] font-semibold after:w-full',
         icon: 'bg-[var(--color-text)]',
-        mobileOverlay: 'bg-[var(--color-text)]/24 backdrop-blur-[1px]',
+        mobileOverlay: 'bg-gray-900/20 backdrop-blur-sm',
         mobilePanel:
-          'bg-[linear-gradient(180deg,var(--color-background),rgba(var(--color-background-rgb),0.98))] text-[var(--color-text)] border-l border-[var(--color-border)]',
-        mobileLink: 'text-[var(--color-text)]/70 hover:text-[var(--color-accent)]',
+          'bg-gradient-to-b from-white via-gray-50 to-white text-[var(--color-text)] border-l border-gray-200',
+        mobileLink: 'text-gray-600 hover:text-[var(--color-accent)]',
       }
 
   return (
@@ -216,23 +206,24 @@ function Navigation() {
                   key={link.label}
                   to={link.path}
                   onClick={() => setMobileOpen(false)}
-                  className={`group relative overflow-hidden rounded-2xl border border-transparent px-4 py-3 font-body text-[17px] transition-all duration-500 ease-out ${link.delayClass} ${
+                  className={`group relative overflow-hidden rounded-2xl border border-transparent px-4 py-3 font-body text-[17px] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${link.delayClass} ${
                     location.pathname === link.path
                       ? 'translate-x-0 opacity-100'
                       : mobileOpen
                         ? 'translate-x-0 opacity-100'
-                        : 'translate-x-6 opacity-0'
+                        : 'translate-x-8 opacity-0'
                   } ${
                     location.pathname === link.path
-                      ? `${themeClasses.activeLink} bg-current/10 border-current/10`
+                      ? `${themeClasses.activeLink} bg-gradient-to-r from-[var(--color-accent)]/15 to-transparent border-[var(--color-accent)]/20`
                       : themeClasses.mobileLink
                   }`}
                 >
                   <span className="relative z-10 flex items-center justify-between">
-                    <span>{link.label}</span>
-                    <span className="text-[12px] uppercase tracking-[2px] text-current/35">{link.label === 'Home' ? '01' : link.label === 'Work' ? '02' : link.label === 'About' ? '03' : '04'}</span>
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">{link.label}</span>
+                    <span className="text-[12px] uppercase tracking-[2px] text-current/35 transition-transform duration-300 group-hover:translate-x-1">{link.label === 'Home' ? '01' : link.label === 'Work' ? '02' : link.label === 'About' ? '03' : '04'}</span>
                   </span>
-                  <span className="absolute inset-0 rounded-2xl bg-current/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <span className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[var(--color-accent)]/10 to-transparent opacity-0 transition-all duration-300 group-hover:opacity-100" />
+                  <span className="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 -translate-x-1 rounded-r-full bg-[var(--color-accent)] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
                 </Link>
               ) : (
                 <button
@@ -242,15 +233,16 @@ function Navigation() {
                     goToSection(link.id)
                     setMobileOpen(false)
                   }}
-                  className={`group relative overflow-hidden rounded-2xl border border-transparent bg-transparent px-4 py-3 text-left font-body text-[17px] transition-all duration-500 ease-out ${link.delayClass} ${
-                    mobileOpen ? 'translate-x-0 opacity-100' : 'translate-x-6 opacity-0'
+                  className={`group relative overflow-hidden rounded-2xl border border-transparent bg-transparent px-4 py-3 text-left font-body text-[17px] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${link.delayClass} ${
+                    mobileOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
                   } ${themeClasses.mobileLink}`}
                 >
                   <span className="relative z-10 flex items-center justify-between">
-                    <span>{link.label}</span>
-                    <span className="text-[12px] uppercase tracking-[2px] text-current/35">05</span>
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">{link.label}</span>
+                    <span className="text-[12px] uppercase tracking-[2px] text-current/35 transition-transform duration-300 group-hover:translate-x-1">05</span>
                   </span>
-                  <span className="absolute inset-0 rounded-2xl bg-current/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <span className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[var(--color-accent)]/10 to-transparent opacity-0 transition-all duration-300 group-hover:opacity-100" />
+                  <span className="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 -translate-x-1 rounded-r-full bg-[var(--color-accent)] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
                 </button>
               )
             )}

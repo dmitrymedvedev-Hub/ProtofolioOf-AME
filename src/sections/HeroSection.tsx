@@ -44,19 +44,19 @@ function HeroSection() {
             I design and build clean, modern web experiences with strong structure, smooth interaction, and a focus on real outcomes.
           </p>
 
-          <div className="hero-actions mt-8 flex flex-col gap-4 opacity-0 sm:flex-row">
-            <button
-              onClick={scrollToProjects}
-              className="rounded-full bg-[var(--color-accent)] px-8 py-4 font-body text-[16px] font-medium text-[var(--color-background)] transition-colors duration-200 hover:bg-[var(--color-accent-600)]"
-            >
-              View Projects
-            </button>
+          <div className="hero-actions mt-8 flex flex-col items-center gap-4 opacity-0 sm:flex-row sm:justify-start">
             <a
               href="/start-project"
-              className="rounded-full bg-[var(--color-accent)] px-8 py-4 font-body text-[16px] font-medium text-[var(--color-background)] shadow-[0_10px_30px_rgba(var(--color-accent-rgb),0.25)] transition-colors duration-200 hover:bg-[var(--color-accent-600)]"
+              className="flex items-center justify-center rounded-full bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-600)] px-10 py-4 font-body text-[16px] font-medium text-[var(--color-background)] shadow-[0_10px_30px_rgba(var(--color-accent-rgb),0.3)] transition-all duration-300 hover:shadow-[0_15px_40px_rgba(var(--color-accent-rgb),0.4)] hover:-translate-y-0.5"
             >
               Start a Project
             </a>
+            <button
+              onClick={scrollToProjects}
+              className="rounded-full bg-[var(--color-accent)]/10 backdrop-blur-sm px-10 py-4 font-body text-[16px] font-medium text-white border border-white/20 transition-all duration-300 hover:bg-[var(--color-accent)]/20 hover:border-[var(--color-accent)]/40 hover:shadow-[0_8px_25px_rgba(var(--color-accent-rgb),0.2)]"
+            >
+              View Projects
+            </button>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3 text-[13px] text-white/64">

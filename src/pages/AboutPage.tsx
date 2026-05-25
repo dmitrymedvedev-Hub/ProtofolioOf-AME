@@ -107,33 +107,64 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="section-pad-xl page-shell-dark">
-        <div className="max-w-[1200px] mx-auto px-5 md:px-10">
-          <div data-animate="header">
-            <p className="section-eyebrow section-eyebrow-dark">Experience</p>
-            <h2 className="mt-3 font-display text-[32px] md:text-[48px] section-title section-title-dark">
+      <section className="section-pad-xl page-shell-dark relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute top-1/4 right-[-10rem] w-[500px] h-[500px] bg-[var(--color-accent)]/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 left-[-5rem] w-[400px] h-[400px] bg-white/3 rounded-full blur-3xl" />
+        </div>
+
+        <div className="relative max-w-[1200px] mx-auto px-5 md:px-10">
+          {/* Header */}
+          <div className="text-center mb-16" data-animate="fade-up">
+            <span className="inline-block px-4 py-2 rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)] text-[13px] uppercase tracking-[3px] font-medium mb-4">
+              Journey
+            </span>
+            <h2 className="font-display text-[36px] md:text-[52px] text-white leading-tight">
               My Experience
             </h2>
-            <div className="mt-3 accent-rule" />
+            <p className="mt-6 text-[17px] text-white/50 max-w-[600px] mx-auto leading-relaxed">
+              A timeline of growth, learning, and delivering impactful solutions
+            </p>
           </div>
 
+          {/* Timeline */}
           <div className="relative mt-16 max-w-[900px] mx-auto">
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-[rgba(var(--color-background-rgb),0.16)]" />
-            <div className="grid gap-8">
+            {/* Center line */}
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--color-accent)]/60 via-[var(--color-accent)]/30 to-transparent" />
+
+            <div className="grid gap-10">
               {timelineItems.map((item, index) => {
                 const isLeft = index % 2 === 0
 
                 return (
                   <div
                     key={item.year}
-                    data-animate="fade"
+                    data-animate="fade-up"
                     data-delay={`${index * 0.15}`}
                     className={`relative pl-12 md:pl-0 ${isLeft ? 'md:pr-[52%] md:text-right' : 'md:pl-[52%]'}`}
                   >
-                    <div className="absolute top-2 left-[12px] h-3 w-3 -translate-x-1/2 rounded-full bg-[var(--color-accent)]" />
-                    <p className="font-body text-[14px] font-medium tracking-[1px] text-[var(--color-accent)]">{item.year}</p>
-                    <h3 className="mt-2 font-body text-[20px] font-medium text-[var(--color-background)]">{item.role}</h3>
-                    <p className="mt-3 section-copy-dark">{item.description}</p>
+                    {/* Dot on timeline */}
+                    <div className="absolute top-6 left-[10px] md:left-1/2 md:-translate-x-1/2 z-10">
+                      <div className="h-4 w-4 rounded-full bg-[var(--color-accent)] shadow-[0_0_20px_rgba(var(--color-accent-rgb),0.5)]" />
+                      <div className="absolute inset-0 rounded-full bg-[var(--color-accent)] animate-ping opacity-20" />
+                    </div>
+
+                    {/* Content card */}
+                    <div className={`p-6 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-sm transition-all duration-500 hover:bg-white/[0.06] hover:border-[var(--color-accent)]/30 hover:shadow-[0_8px_32px_rgba(var(--color-accent-rgb),0.1)] ${isLeft ? 'md:mr-4' : 'md:ml-4'}`}>
+                      <div className={`flex items-center gap-3 mb-3 ${isLeft ? 'md:flex-row-reverse' : ''}`}>
+                        <span className="px-3 py-1 rounded-full bg-[var(--color-accent)]/15 text-[var(--color-accent)] text-[12px] font-semibold uppercase tracking-[2px]">
+                          {item.year}
+                        </span>
+                        <div className="h-px flex-1 bg-white/10" />
+                      </div>
+                      <h3 className="font-body text-[20px] font-semibold text-white mb-3">
+                        {item.role}
+                      </h3>
+                      <p className="text-[15px] text-white/60 leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
                 )
               })}
