@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ChangeEvent, type FormEvent } from 'react'
 
 function ContactSection() {
   const [formData, setFormData] = useState({
@@ -9,14 +9,14 @@ function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
     }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     
@@ -80,18 +80,18 @@ function ContactSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Name field */}
             <div className="group">
-              <label className="block text-[13px] uppercase tracking-[2px] text-white/50 mb-3 font-medium">
+              <label htmlFor="contact-name" className="block text-[13px] uppercase tracking-[2px] text-white/50 mb-3 font-medium">
                 Your Name
               </label>
               <div className="relative">
                 <input
+                  id="contact-name"
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/30 outline-none transition-all duration-300 group-hover:border-[var(--color-accent)]/30 focus:border-[var(--color-accent)] focus:bg-white/[0.07] focus:shadow-[0_0_30px_rgba(var(--color-accent-rgb),0.1)]"
                   placeholder="John Doe"
-                  aria-label="Your name"
                   required
                 />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[var(--color-accent)]/20 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -100,18 +100,18 @@ function ContactSection() {
 
             {/* Email field */}
             <div className="group">
-              <label className="block text-[13px] uppercase tracking-[2px] text-white/50 mb-3 font-medium">
+              <label htmlFor="contact-email" className="block text-[13px] uppercase tracking-[2px] text-white/50 mb-3 font-medium">
                 Email Address
               </label>
               <div className="relative">
                 <input
+                  id="contact-email"
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/30 outline-none transition-all duration-300 group-hover:border-[var(--color-accent)]/30 focus:border-[var(--color-accent)] focus:bg-white/[0.07] focus:shadow-[0_0_30px_rgba(var(--color-accent-rgb),0.1)]"
                   placeholder="john@example.com"
-                  aria-label="Your email"
                   required
                 />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[var(--color-accent)]/20 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -121,18 +121,18 @@ function ContactSection() {
 
           {/* Message field */}
           <div className="mt-6 group">
-            <label className="block text-[13px] uppercase tracking-[2px] text-white/50 mb-3 font-medium">
+            <label htmlFor="contact-message" className="block text-[13px] uppercase tracking-[2px] text-white/50 mb-3 font-medium">
               Your Message
             </label>
             <div className="relative">
               <textarea
+                id="contact-message"
                 rows={5}
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
                 className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/30 outline-none transition-all duration-300 group-hover:border-[var(--color-accent)]/30 focus:border-[var(--color-accent)] focus:bg-white/[0.07] focus:shadow-[0_0_30px_rgba(var(--color-accent-rgb),0.1)] resize-none"
                 placeholder="Tell me about your project, timeline, and goals..."
-                aria-label="Your message"
                 required
               />
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[var(--color-accent)]/20 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -144,7 +144,7 @@ function ContactSection() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`relative w-full md:w-auto px-12 py-5 rounded-full font-body text-[16px] font-semibold text-[var(--color-background)] transition-all duration-500 ${
+              className={`group relative w-full md:w-auto px-12 py-5 rounded-full font-body text-[16px] font-semibold text-[var(--color-background)] transition-all duration-500 ${
                 isSubmitting
                   ? 'bg-[var(--color-accent)]/70 cursor-wait'
                   : 'bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-600)] hover:shadow-[0_15px_40px_rgba(var(--color-accent-rgb),0.3)] hover:-translate-y-1'

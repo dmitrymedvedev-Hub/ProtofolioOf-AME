@@ -12,23 +12,32 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
-    // Check localStorage first
-    const saved = localStorage.getItem('theme') as Theme | null
-    if (saved) return saved
-    
-    // Then check system preference
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark'
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = window.localStorage.getItem('theme') as Theme | null
+        if (saved) return saved
+      } catch {
+        // Ignore localStorage read failures (private mode / restricted storage)
+      }
+
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark'
+      }
     }
-    
-    return 'dark' // Default to dark
+
+    return 'dark'
   })
 
   useEffect(() => {
-    // Update localStorage
-    localStorage.setItem('theme', theme)
-    
-    // Update document class for CSS
+    if (typeof window !== 'undefined') {
+      try {
+        window.localStorage.setItem('theme', theme)
+      } catch {
+        // Ignore localStorage write failures (private mode / restricted storage)
+      }
+    }
+
+    if (typeof document === 'undefined') return
     const root = document.documentElement
     if (theme === 'dark') {
       root.classList.add('dark')
