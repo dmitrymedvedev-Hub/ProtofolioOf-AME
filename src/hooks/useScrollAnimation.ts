@@ -57,6 +57,79 @@ export function useScrollAnimation() {
       })
     }
 
+    // Fade up animation (new modern style)
+    const fadeUpElements = document.querySelectorAll('[data-animate="fade-up"]')
+    if (fadeUpElements.length) {
+      fadeUpElements.forEach((el) => {
+        const delay = parseFloat(el.getAttribute('data-delay') || '0')
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 50, scale: 0.97 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            delay,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              once: true,
+            },
+          }
+        )
+      })
+    }
+
+    // Scale in animation
+    const scaleElements = document.querySelectorAll('[data-animate="scale"]')
+    if (scaleElements.length) {
+      scaleElements.forEach((el) => {
+        const delay = parseFloat(el.getAttribute('data-delay') || '0')
+        gsap.fromTo(
+          el,
+          { opacity: 0, scale: 0.9 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.9,
+            delay,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              once: true,
+            },
+          }
+        )
+      })
+    }
+
+    // Slide from left
+    const slideLeft = document.querySelectorAll('[data-animate="slide-left"]')
+    if (slideLeft.length) {
+      slideLeft.forEach((el) => {
+        const delay = parseFloat(el.getAttribute('data-delay') || '0')
+        gsap.fromTo(
+          el,
+          { opacity: 0, x: -50 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.9,
+            delay,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 80%',
+              once: true,
+            },
+          }
+        )
+      })
+    }
+
     // Staggered children
     const staggerContainers = document.querySelectorAll('[data-animate="stagger"]')
     if (staggerContainers.length) {
@@ -103,6 +176,24 @@ export function useScrollAnimation() {
             },
           }
         )
+      })
+    }
+
+    // Parallax effect for elements with data-parallax
+    const parallaxElements = document.querySelectorAll('[data-parallax]')
+    if (parallaxElements.length) {
+      parallaxElements.forEach((el) => {
+        const speed = parseFloat(el.getAttribute('data-parallax') || '0.3')
+        gsap.to(el, {
+          yPercent: -50 * speed,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          },
+        })
       })
     }
 

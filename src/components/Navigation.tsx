@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useTheme } from '../context/ThemeContext'
 
 function Navigation() {
+  const { theme, toggleTheme } = useTheme()
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
   const isHome = location.pathname === '/'
+  const isStartProject = location.pathname === '/start-project'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,6 +38,7 @@ function Navigation() {
   }
 
   const navLinks = [
+    { label: 'Home', path: '/', type: 'route' as const },
     { label: 'Work', path: '/work', type: 'route' as const },
     { label: 'About', path: '/about', type: 'route' as const },
     { label: 'Contact', path: '/start-project', type: 'route' as const },
@@ -42,31 +46,38 @@ function Navigation() {
 
   const mobileItems = navLinks.map((link, index) => ({
     ...link,
-    delayClass: ['delay-[120ms]', 'delay-[190ms]', 'delay-[260ms]'][index] || 'delay-0',
+    delayClass: ['delay-[120ms]', 'delay-[190ms]', 'delay-[260ms]', 'delay-[330ms]'][index] || 'delay-0',
   }))
 
-    const themeClasses = isHome
+  // Determine if we're on a dark-themed page
+  const isDarkPage = isHome || isStartProject || location.pathname === '/work' || location.pathname === '/about' || location.pathname === '/about-more'
+
+  const themeClasses = isDarkPage
     ? {
+        // Dark theme for all main pages - consistent modern gradient
         shell: scrolled
-          ? 'bg-[var(--color-text)]/75 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20'
-          : 'bg-transparent border-b border-transparent',
-        brand: 'text-[var(--color-background)]',
-        link: 'text-[var(--color-background)]/70 hover:text-[var(--color-background)]',
-        activeLink: 'text-[var(--color-background)]',
-        icon: 'bg-[var(--color-background)]',
-        mobileOverlay: 'bg-black/35',
-        mobilePanel: 'bg-[var(--color-text)]/95 text-[var(--color-background)] border-l border-white/10',
-        mobileLink: 'text-[var(--color-background)]/75 hover:text-[var(--color-background)]',
+          ? 'bg-gradient-to-r from-[var(--color-text)]/95 via-[var(--color-text)]/85 to-[var(--color-text)]/95 backdrop-blur-2xl border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
+          : 'bg-gradient-to-r from-[var(--color-text)]/70 via-[var(--color-text)]/50 to-[var(--color-text)]/70 backdrop-blur-xl border-b border-white/5',
+        brand: 'text-white font-semibold',
+        link: 'text-white/70 hover:text-white transition-all duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-[var(--color-accent)] after:rounded-full after:transition-all after:duration-300 hover:after:w-full',
+        activeLink: 'text-white font-semibold after:w-full',
+        icon: 'bg-white',
+        mobileOverlay: 'bg-black/70 backdrop-blur-md',
+        mobilePanel:
+          'bg-gradient-to-b from-[var(--color-text)] via-[rgba(var(--color-text-rgb),0.98)] to-[var(--color-text)] text-white border-l border-white/10',
+        mobileLink: 'text-white/75 hover:text-white',
       }
     : {
-        shell: 'bg-[var(--color-background)]/90 backdrop-blur-xl border-b border-[var(--color-border)] shadow-lg shadow-[var(--color-text)]/5',
-        brand: 'text-[var(--color-text)]',
-        link: 'text-[var(--color-text)]/70 hover:text-[var(--color-accent)]',
-        activeLink: 'text-[var(--color-text)]',
+        // Light theme for other pages - clean modern style
+        shell: 'bg-white/95 backdrop-blur-2xl border-b border-gray-200 shadow-[0_8px_32px_rgba(0,0,0,0.08)]',
+        brand: 'text-[var(--color-text)] font-semibold',
+        link: 'text-gray-600 hover:text-[var(--color-accent)] transition-all duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:h-0.5 after:w-0 after:bg-[var(--color-accent)] after:rounded-full after:transition-all after:duration-300 hover:after:w-full',
+        activeLink: 'text-[var(--color-text)] font-semibold after:w-full',
         icon: 'bg-[var(--color-text)]',
-        mobileOverlay: 'bg-[var(--color-text)]/20',
-        mobilePanel: 'bg-[var(--color-background)] text-[var(--color-text)] border-l border-[var(--color-border)]',
-        mobileLink: 'text-[var(--color-text)]/70 hover:text-[var(--color-accent)]',
+        mobileOverlay: 'bg-gray-900/30 backdrop-blur-md',
+        mobilePanel:
+          'bg-gradient-to-b from-white via-gray-50 to-white text-[var(--color-text)] border-l border-gray-200',
+        mobileLink: 'text-gray-600 hover:text-[var(--color-accent)]',
       }
 
   return (
@@ -91,7 +102,50 @@ function Navigation() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6">
+          {/* Theme Toggle Button - Left side near Contact */}
+          <button
+            onClick={toggleTheme}
+            className="group relative p-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-[var(--color-accent)]/30"
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          >
+            {/* Sun Icon (shown in dark mode) */}
+            <svg
+              className={`w-5 h-5 text-white/70 transition-all duration-500 ${
+                theme === 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50 absolute'
+              }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+            {/* Moon Icon (shown in light mode) */}
+            <svg
+              className={`w-5 h-5 text-white/70 transition-all duration-500 ${
+                theme === 'light' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-50 absolute'
+              }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
+            </svg>
+            {/* Glow effect */}
+            <div className="absolute inset-0 rounded-full bg-[var(--color-accent)]/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </button>
+
           {navLinks.map((link) => {
             const isActive =
               link.type === 'route'
@@ -159,7 +213,7 @@ function Navigation() {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden fixed inset-x-0 top-16 bottom-0 z-40 transition-all duration-300 ${
+        className={`md:hidden fixed inset-0 z-[60] transition-all duration-300 ${
           mobileOpen ? 'pointer-events-auto' : 'pointer-events-none'
         }`}
       >
@@ -172,32 +226,52 @@ function Navigation() {
           onClick={() => setMobileOpen(false)}
         />
         <div
-          className={`absolute right-0 top-0 h-full w-[min(86vw,320px)] border-l p-6 sm:p-8 shadow-2xl backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${themeClasses.mobilePanel} ${
-            mobileOpen ? 'translate-x-0 opacity-100' : 'translate-x-[102%] opacity-0'
+          className={`absolute right-0 top-0 h-full w-[min(88vw,360px)] border-l p-5 sm:p-7 shadow-[0_32px_80px_rgba(0,0,0,0.3)] backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${themeClasses.mobilePanel} ${
+            mobileOpen ? 'translate-x-0 opacity-100' : 'translate-x-[105%] opacity-0'
           }`}
         >
-          <div className="mb-8 h-px w-12 rounded-full bg-[var(--color-accent)]/70" />
-          <div className="flex flex-col gap-2">
+          <div className="flex items-center justify-between gap-4 pb-5">
+            <div>
+              <p className="font-body text-[12px] uppercase tracking-[2px] text-current/50">Navigation</p>
+              <h2 className="mt-1 font-display text-[22px] leading-none">Menu</h2>
+            </div>
+            <button
+              type="button"
+              className="rounded-full border border-current/10 bg-current/5 px-3 py-2 text-[13px] font-medium text-current/75 transition-colors hover:bg-current/10 hover:text-current"
+              onClick={() => setMobileOpen(false)}
+              aria-label="Close sidebar"
+            >
+              Close
+            </button>
+          </div>
+
+          <div className="h-px w-full bg-current/10" />
+
+          <div className="mt-5 flex flex-col gap-2">
             {mobileItems.map((link) =>
               link.type === 'route' ? (
                 <Link
                   key={link.label}
                   to={link.path}
                   onClick={() => setMobileOpen(false)}
-                  className={`group relative overflow-hidden rounded-2xl px-4 py-3 font-body text-[18px] transition-all duration-500 ease-out ${link.delayClass} ${
+                  className={`group relative overflow-hidden rounded-2xl border border-transparent px-4 py-3 font-body text-[17px] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${link.delayClass} ${
                     location.pathname === link.path
                       ? 'translate-x-0 opacity-100'
                       : mobileOpen
                         ? 'translate-x-0 opacity-100'
-                        : 'translate-x-6 opacity-0'
+                        : 'translate-x-8 opacity-0'
                   } ${
                     location.pathname === link.path
-                      ? themeClasses.activeLink
+                      ? `${themeClasses.activeLink} bg-gradient-to-r from-[var(--color-accent)]/15 to-transparent border-[var(--color-accent)]/20`
                       : themeClasses.mobileLink
                   }`}
                 >
-                  <span className="relative z-10">{link.label}</span>
-                  <span className="absolute inset-0 rounded-2xl bg-current/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <span className="relative z-10 flex items-center justify-between">
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">{link.label}</span>
+                    <span className="text-[12px] uppercase tracking-[2px] text-current/35 transition-transform duration-300 group-hover:translate-x-1">{link.label === 'Home' ? '01' : link.label === 'Work' ? '02' : link.label === 'About' ? '03' : '04'}</span>
+                  </span>
+                  <span className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[var(--color-accent)]/10 to-transparent opacity-0 transition-all duration-300 group-hover:opacity-100" />
+                  <span className="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 -translate-x-1 rounded-r-full bg-[var(--color-accent)] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
                 </Link>
               ) : (
                 <button
@@ -207,15 +281,25 @@ function Navigation() {
                     goToSection(link.id)
                     setMobileOpen(false)
                   }}
-                  className={`group relative overflow-hidden rounded-2xl border-none bg-transparent px-4 py-3 text-left font-body text-[18px] transition-all duration-500 ease-out ${link.delayClass} ${
-                    mobileOpen ? 'translate-x-0 opacity-100' : 'translate-x-6 opacity-0'
+                  className={`group relative overflow-hidden rounded-2xl border border-transparent bg-transparent px-4 py-3 text-left font-body text-[17px] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${link.delayClass} ${
+                    mobileOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
                   } ${themeClasses.mobileLink}`}
                 >
-                  <span className="relative z-10">{link.label}</span>
-                  <span className="absolute inset-0 rounded-2xl bg-current/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <span className="relative z-10 flex items-center justify-between">
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">{link.label}</span>
+                    <span className="text-[12px] uppercase tracking-[2px] text-current/35 transition-transform duration-300 group-hover:translate-x-1">05</span>
+                  </span>
+                  <span className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[var(--color-accent)]/10 to-transparent opacity-0 transition-all duration-300 group-hover:opacity-100" />
+                  <span className="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 -translate-x-1 rounded-r-full bg-[var(--color-accent)] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
                 </button>
               )
             )}
+          </div>
+
+          <div className="mt-6 rounded-3xl border border-current/10 bg-current/5 p-4 text-current/70">
+            <p className="text-[13px] leading-relaxed">
+              A clean, focused sidebar built to keep navigation simple, readable, and consistent on every screen.
+            </p>
           </div>
         </div>
       </div>
