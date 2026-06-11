@@ -9,7 +9,6 @@ function Navigation() {
   const location = useLocation()
   const navigate = useNavigate()
   const isHome = location.pathname === '/'
-  const isStartProject = location.pathname === '/start-project'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,10 +48,7 @@ function Navigation() {
     delayClass: ['delay-[120ms]', 'delay-[190ms]', 'delay-[260ms]', 'delay-[330ms]'][index] || 'delay-0',
   }))
 
-  // Determine if we're on a dark-themed page
-  const isDarkPage = isHome || isStartProject || location.pathname === '/work' || location.pathname === '/about' || location.pathname === '/about-more'
-
-  const themeClasses = isDarkPage
+  const themeClasses = theme === 'dark'
     ? {
         // Dark theme for all main pages - consistent modern gradient
         shell: scrolled

@@ -53,8 +53,8 @@ function WorkPage() {
   return (
     <>
       <section className="page-shell-dark section-pad-hero">
-        <div className="max-w-[1200px] mx-auto px-5 md:px-10 max-w-[760px]">
-          <div data-animate="fade">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-10">
+          <div data-animate="fade" className="max-w-[760px]">
             <p className="font-accent text-[18px] md:text-[24px] text-[var(--color-accent)]">Work</p>
             <h1 className="mt-4 font-display text-[42px] md:text-[74px] leading-[0.95] section-title section-title-dark">
               Detailed views of selected projects

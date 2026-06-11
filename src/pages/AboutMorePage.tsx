@@ -90,7 +90,7 @@ function AboutMorePage() {
             {highlights.map((item) => (
               <div
                 key={item.title}
-                className="group p-6 rounded-2xl bg-white border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-[var(--color-accent)]/10 hover:-translate-y-1"
+                className="group p-6 rounded-2xl bg-white border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
               >
                 <div className="w-12 h-12 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                   <div className="w-3 h-3 rounded-full bg-[var(--color-accent)]" />
